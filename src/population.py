@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import random
 from datetime import datetime, timedelta, date
-from flights.models import Airport, Plane, Flight
+from flights.models import Airport, Plane, Flight, Ticket
 
 def airport_fill():
     sheet = pd.read_excel('airportsupd.xlsx')
@@ -42,7 +42,7 @@ def flights_fill(count):
     airports = Airport.objects.all()
     planes = Plane.objects.all()
     for i in range(count):
-        year = random.randint(2018, 2025)
+        year = random.randint(2018, 2019)
         flight_datetime = get_random_date(year)
         flight_date = flight_datetime.date()
         hour = random.randint(3, 23)
@@ -52,7 +52,24 @@ def flights_fill(count):
         plane = planes.get(pk=plane_index)
         flight = Flight(duration=flight_time, date=flight_date, departure=dep, destination=dest, plane=plane)
         flight.save()
+        print("Added: ", i + 1)
 
-#airport_fill()
-#plane_fill()
-flights_fill(50000)
+
+def tickets_fill(count):
+    flights = Flight.objects.all()
+    price_list = [x for x in range(400, 1200, 20)]
+    sit_classes = ["Economy", "Business"]
+    for x in range(count):
+        flight = flights.order_by('?').first()
+        ticket = Ticket(flight=flight, 
+                        sit_class=sit_classes[random.randint(0, len(sit_classes) - 1)],
+                        cost = price_list[random.randint(0, len(price_list) - 1)],
+                        cost_currency='USD')
+        ticket.save()
+        print("Added: ", x + 1)
+    
+
+airport_fill()
+plane_fill()
+flights_fill(30000)
+tickets_fill(20000)

@@ -54,5 +54,5 @@ class Ticket(models.Model):
 
     sit_class = models.CharField(max_length=32, null=False, blank=False)
     flight = models.ForeignKey('Flight', on_delete=models.CASCADE)
-    client = models.ForeignKey('Client', on_delete=models.CASCADE)
+    client = models.ForeignKey('Client', on_delete=models.CASCADE, null=True)
     cost = MoneyField(default_currency='EUR', max_digits=10, decimal_places=2)

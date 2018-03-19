@@ -11,7 +11,7 @@
   {% if form.errors %}
     <p>You login or password is invalid, please try again.</p>
   {% endif %}
-  <form action="POST" action="#">
+  <form action="GET" action="{% url 'tickets' %}">
       {% csrf_token %}
       {{ form.as_p }}
       <input type="submit" value="Find">
