@@ -69,7 +69,22 @@ def tickets_fill(count):
         print("Added: ", x + 1)
     
 
-airport_fill()
-plane_fill()
-flights_fill(30000)
-tickets_fill(20000)
+def ticket_all():
+    flights = Flight.objects.all()
+    price_list = [x for x in range(400, 1200, 20)]
+    sit_classes = ["Economy", "Business"]
+    count = 1
+    for x in flights:
+        ticket = Ticket(flight=x, 
+                        sit_class=sit_classes[random.randint(0, len(sit_classes) - 1)],
+                        cost = price_list[random.randint(0, len(price_list) - 1)],
+                        cost_currency='USD')
+        ticket.save()
+        print(count)
+        count += 1
+
+# airport_fill()
+# plane_fill()
+# flights_fill(30000)
+# tickets_fill(20000)
+ticket_all()

@@ -3,5 +3,5 @@ from .views import FlightsTemplateView, TicketListView
 
 urlpatterns = [
     path('', FlightsTemplateView.as_view(), name='home'),
-    path('tickets', TicketListView.as_view(), name='tickets'),
+    path('tickets/', TicketListView.as_view(), name='tickets'),
 ]

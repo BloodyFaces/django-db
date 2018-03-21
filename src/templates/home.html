@@ -9,10 +9,9 @@
 <div>Home</div>
 <div>
   {% if form.errors %}
-    <p>You login or password is invalid, please try again.</p>
+    <p>Error while handling form.</p>
   {% endif %}
-  <form action="GET" action="{% url 'tickets' %}">
-      {% csrf_token %}
+  <form method="GET" action="{% url 'tickets' %}">
       {{ form.as_p }}
       <input type="submit" value="Find">
   </form>
