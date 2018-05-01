@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+
+{% block title %}
+    Ticket
+{% endblock title %}
+
+{% block inject %}
+<link href="{% static "css/pricing.css" %}" rel="stylesheet">
+{% endblock inject %}
+
+{% block content %}
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    <h1 class="display-4">Booking</h1>
+    <h1><p class="lead">Enter your personal info to make booking.</p></h1>
+</div>
+{% endblock content %}

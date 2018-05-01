@@ -6,18 +6,46 @@
     Tickets
 {% endblock title %}
 
+{% block inject %}
+<link href="{% static "css/pricing.css" %}" rel="stylesheet">
+{% endblock inject %}
+
 {% block content %}
 {% if object_list %}
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    <h1 class="display-4">Tickets</h1>
+    <h1><p class="lead">Choose ticket from list according to price.</p></h1>
+</div>
+<div class="container">
   {% for ticket in object_list %}
-    <p>From: {{ ticket.flight.departure.name }}({{ ticket.flight.departure.country }})</p>
-    <p>To: {{ ticket.flight.destination.name }}({{ ticket.flight.destination.country }})</p>
-    <p>Plane: {{ ticket.flight.plane.name }}</p>
-    <p>Duration: {{ ticket.flight.duration }}</p>
-    <p>Sit class: {{ ticket.sit_class }}</p>
-    <p><a><button class="btn-primary">BUY: {{ ticket.cost }}</button></a></p>
-    <p>------------------------------</p>
+  <div class="row align-items-center">
+      <div class="col-md-3"></div>
+        <div class="col-md-6">
+  <div class="card box-shadow">
+      <div class="card-header">
+        <h4 class="my-0 font-weight-bold text-primary">{{ ticket.flight.departure.country }}-{{ ticket.flight.destination.country }}</h4>
+      </div>
+      <div class="card-body">
+          <h4 class="card-title pricing-card-title">From: {{ ticket.flight.id }}</h4>
+          <h4 class="card-title pricing-card-title">From: {{ ticket.flight.departure.name }}</h4>
+          <h4 class="card-title pricing-card-title">To: {{ ticket.flight.destination.name }}</h4>
+          <h4 class="card-title pricing-card-title">Plane: {{ ticket.flight.plane.name }}</h4>
+          <h4 class="card-title pricing-card-title">Sit class: {{ ticket.sit_class }}</h4>
+          <p></p>
+          <a href="{% url 'tickets' %}{{ ticket.id }}"><button type="button" class="btn btn-lg btn-block btn-primary">Buy for {{ ticket.cost }}</button></a>
+      </div>
+    </div>
+    </div>
+    <div class="col-md-3"></div>
+  </div>
+  <p></p>
   {% endfor %}
+</div>
 {% else %}
-  <p>No entries found!</p>
+  <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+      <h1 class="display-4">No tickets found!</h1>
+      <h1><p class="lead">Unfortunately there are no tickets or you entered incorrect criteria. <strong><a href="{% url 'home' %}">Go back</a></strong> and try again.</p></h1>
+  </div>
 {% endif %}
+</div>
 {% endblock content %}

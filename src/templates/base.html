@@ -7,6 +7,9 @@
     <link href="{% static "css/form-validation.css" %}" rel="stylesheet">
     <!-- <link href="{% static "css/product.css" %}" rel="stylesheet"> -->
     <link href="{% static "css/cover.css" %}" rel="stylesheet">
+    {% block inject %}
+      
+    {% endblock inject %}
 </head>
 <body class="bg-light text-center">
     {% block content %}
@@ -17,5 +20,9 @@
     <script src="{% static "js/popper.min.js" %}"></script>
     <script src="{% static "js/bootstrap.min.js" %}"></script>
     <script src="{% static "js/holder.min.js" %}"></script>
+    {% block afterjs %}
+      
+    {% endblock afterjs %}
+
 </body>
 </html>

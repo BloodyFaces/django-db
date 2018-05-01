@@ -6,28 +6,28 @@ from djmoney.models.fields import MoneyField
 class Airport(models.Model):
     class Meta:
         db_table = 'Airport'
-        db_tablespace = 'django_web'
     
     name = models.CharField(max_length=128, null=False, blank=False)
     country = models.CharField(max_length=128, null=False, blank=False)
     city = models.CharField(max_length=128, null=False, blank=False)
 
     def __str__(self):
-        return "%s-%s-%s" % (self.name, self.country, self.city)
+        return "%s" % (self.name)
 
 
 class Plane(models.Model):
     class Meta:
         db_table = 'Plane'
-        db_tablespace = 'django_web'
 
     name = models.CharField(max_length=128, null=False, blank=False)
     number_of_sits = models.IntegerField()
 
+    def __str__(self):
+        return "%s" % (self.name)
+
 class Client(models.Model):
     class Meta:
         db_table = 'Client'
-        db_tablespace = 'django_web'
 
     name = models.CharField(max_length=128, null=False, blank=False)
     surname = models.CharField(max_length=128, null=False, blank=False)
@@ -35,11 +35,13 @@ class Client(models.Model):
     phone_number = PhoneNumberField(blank=False, null=False)
     email = models.EmailField(blank=False, null=False)
 
+    def __str__(self):
+        return "%s %s" % (self.name, self.surname)
+
 
 class Flight(models.Model):
     class Meta:
         db_table = 'Flight'
-        db_tablespace = 'django_web'
 
     duration = models.DurationField()
     date = models.DateField(auto_now=False, auto_now_add=False)
@@ -47,12 +49,18 @@ class Flight(models.Model):
     destination = models.ForeignKey('Airport', on_delete=models.CASCADE, related_name='%(class)s_destination')
     plane = models.ForeignKey('Plane', on_delete=models.CASCADE)
 
+    def __str__(self):
+        return "%s" % (self.id)
+
 class Ticket(models.Model):
     class Meta:
         db_table = 'Ticket'
-        db_tablespace = 'django_web'
 
     sit_class = models.CharField(max_length=32, null=False, blank=False)
     flight = models.ForeignKey('Flight', on_delete=models.CASCADE)
     client = models.ForeignKey('Client', on_delete=models.CASCADE, null=True)
     cost = MoneyField(default_currency='EUR', max_digits=10, decimal_places=2)
+
+    def __str__(self):
+        return "%s" % (self.id)
+
